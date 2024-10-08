@@ -1,6 +1,7 @@
 import express from "express";
 import { connect } from './config/database.js';
 import User from "./config/schema.js";
+import mongoose from "mongoose";
 
 const app = express();
 
@@ -18,13 +19,3 @@ connect()
         process.exit(1);
     });
 
-app.post("/signup", async (req, res) => {
-    try {
-        const user = new User(req.body);
-
-        await user.save();
-        res.status(201).send("User added successfully");
-    } catch (error) {
-        res.status(500).send("Error adding user: " + error.message);
-    }
-});
